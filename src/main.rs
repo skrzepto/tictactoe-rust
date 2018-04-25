@@ -9,24 +9,34 @@ mod board {
     }
 
     pub struct GameState {
-        pub squares_filled: Cell<i32>,
-        pub winner: Cell<Square>,
-        pub board: Cell<[[Square;3]; 3]>
+        pub squares_filled: i32,
+        pub winner: Square,
+        pub board: [[Square;3]; 3]
     }
 
+    impl GameState {
+        fn check_horizontal (&mut self) {
+            let res = self.board.iter()
+                .map(|&r| validate(r))
+                .filter(|&cell| cell != Square::Empty)
+                .collect::<Vec<Square>>();
 
-    pub fn init () -> GameState {
-        GameState {
-            squares_filled: Cell::new(0),
-            winner: Cell::new(Square::Empty),
-            board: Cell::new([[Square::Empty; 3]; 3])
+            if res.len() > 0 {
+                self.winner = res[0];
+            }
+        }
+
+        fn check_vertical (game: GameState) {
+        }
+
+        pub fn inspectBoard(game: GameState) {
+            // across
+
+            // vertical
+            // diagonal
+            //  two option top left, bottom left
         }
     }
-}
-
-mod validation {
-    use board::Square;
-    use board::GameState;
 
     fn validate(row: [Square;3]) -> Square {
         let non_empty = row.iter()
@@ -46,30 +56,24 @@ mod validation {
         return Square::Empty;
     }
 
-    fn check_horizontal (game: GameState) -> GameState {
-        let res = game.board.get().iter()
-            .map(|&r| validate(r))
-            .filter(|&cell| cell != Square::Empty)
-            .collect::<Vec<Square>>();
-
-        if res.len() > 0 {
-            game.winner.set(res[0]);
+    pub fn init () -> GameState {
+        GameState {
+            squares_filled: 0,
+            winner: Square::Empty,
+            board: [[Square::Empty; 3]; 3]
         }
-        return game;
     }
+}
 
-    fn check_vertical (game: GameState) -> GameState {
-        return game;
-    }
+mod validation {
+    use board::Square;
+    use board::GameState;
 
-    pub fn inspectBoard(game: GameState) -> GameState {
-        // across
 
-        // vertical
-        // diagonal
-        //  two option top left, bottom left
-        return game;
-    }
+
+
+
+
 }
 
 fn main() {
