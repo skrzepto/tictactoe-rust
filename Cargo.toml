@@ -1,0 +1,4 @@
+[package]
+name = "tictactoe"
+version = "0.1.0"
+authors = ["Simon Mucha <shims506@gmail.com>", "Cory Schnepper <cschnepper@paytronix.com>"]
